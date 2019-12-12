@@ -31,8 +31,20 @@ class AdsController < ApplicationController
     end
     
     def create
-        newAd = Ad.create(ad_params)
-        newAdFormatted = {"id" => newAd.id,"food_name" => newAd.food_name, "user_id" => newAd.giver.user.id, "user_name" => newAd.giver.user.name}
+        
+        if params["ad"]["postcode"]
+            ad = params["ad"]
+        else
+            giverCode = Giver.all.find(1).postcode 
+            
+            ad = params["ad"]
+            ad["postcode"] = giverCode
+        end
+        
+        
+        newAd = Ad.create(food_name: ad["food_name"], giver_id: ad["giver_id"], postcode: ad["postcode"])
+        
+        newAdFormatted = {"id" => newAd.id,"food_name" => newAd.food_name, "postcode" => newAd.postcode, "user_id" => newAd.giver.user.id, "user_name" => newAd.giver.user.name}
         render json: newAdFormatted
     end
 
@@ -44,6 +56,6 @@ class AdsController < ApplicationController
     private
 
     def ad_params
-        params.require(:ad).permit(:giver_id,:food_name)
+        params.require(:ad).permit!
     end
 end

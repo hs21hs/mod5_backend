@@ -6,16 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# User.create(name: "haider")
-# User.create(name: "steve")
-# Giver.create(user_id: 1, )
+#  User.create(name: "haider")
+#  User.create(name: "steve")
+# Giver.create(user_id: 1, postcode: "n1 6pw")
 # Rider.create(user_id: 1)
 # FoodBank.create(name: "food4all")
 # Delivery.create(rider_id: 1, giver_id:1, food_bank_id:1)
 # Delivery.create(rider_id: 1, giver_id: 2)
-Ad.create(giver_id: 1, postcode: "n1 6pw")
-Ad.create(giver_id: 1, postcode: "sw3 4ry")
-Ad.create(giver_id: 1, postcode: "n1 5eh")
+# Ad.create(giver_id: 1, postcode: "n1 6pw")
+# Ad.create(giver_id: 1, postcode: "sw3 4ry")
+# Ad.create(giver_id: 1, postcode: "n1 5eh")
 # latitude: "51.5326946", longitude: "-0.0811076"
 
 # Location.create(postcode: "nw9 5hb", state: "London", country: "United Kingdom")
