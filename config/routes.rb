@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   get "/ads", to: 'ads#index'
   get "/my_ads", to: 'ads#my_ads'
   post "/ads", to: 'ads#create'
+  post "/ads/filter", to: 'ads#filter_ads'
   delete "/ads/:id", to: 'ads#destroy'
 end

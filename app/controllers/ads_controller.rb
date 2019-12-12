@@ -1,8 +1,27 @@
 class AdsController < ApplicationController
 
     def index
+        
         adsFr = Ad.all.map{|ad| {"id" => ad.id, "food_name" => ad.food_name, "user_id" => ad.giver.user.id, "user_name" => ad.giver.user.name}}
         render json: adsFr
+       
+    end
+
+    def filter_ads
+        
+        l1 = Geocoder.coordinates(params["postcode"]+", London, United Kingdom")
+        distance = params["radius"]
+        
+        filtered = Ad.all.select do |ad|
+
+            l2 = ad.postcode+", London, United Kingdom"
+            distance = Geocoder::Calculations.distance_between(l1,l2)
+
+            if distance < params["radius"].to_i 
+                true
+            end
+        end
+        render json: filtered
     end
 
     def my_ads

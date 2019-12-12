@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_12_10_145133) do
   create_table "ads", force: :cascade do |t|
     t.integer "giver_id"
     t.string "food_name"
+    t.string "postcode"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -41,8 +42,11 @@ ActiveRecord::Schema.define(version: 2019_12_10_145133) do
 
   create_table "givers", force: :cascade do |t|
     t.integer "user_id"
-    t.string "address"
     t.string "postcode"
+    t.string "city"
+    t.string "country"
+    t.string "latitude"
+    t.string "longitude"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
