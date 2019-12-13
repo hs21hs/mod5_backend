@@ -26,7 +26,7 @@ class AdsController < ApplicationController
 
     def my_ads
         myAds = Ad.all.filter{|ad| ad.giver.user_id ==1}
-        myAdsFr = Ad.all.map{|ad| {"id" => ad.id, "food_name" => ad.food_name, "user_id" => ad.giver.user.id, "user_name" => ad.giver.user.name}}
+        myAdsFr = Ad.all.map{|ad| {"id" => ad.id, "food_name" => ad.food_name, "postcode" => ad.postcode, "user_id" => ad.giver.user.id, "user_name" => ad.giver.user.name}}
         render json: myAdsFr
     end
     
