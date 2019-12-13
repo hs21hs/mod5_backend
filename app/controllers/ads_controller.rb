@@ -2,13 +2,13 @@ class AdsController < ApplicationController
 
     def index
         
-        adsFr = Ad.all.map{|ad| {"id" => ad.id, "food_name" => ad.food_name, "user_id" => ad.giver.user.id, "user_name" => ad.giver.user.name}}
+        adsFr = Ad.all.map{|ad| {"id" => ad.id, "food_name" => ad.food_name, "user_id" => ad.user.id, "user_name" => ad.user.name}}
         render json: adsFr
        
     end
 
     def filter_ads
-        
+       
         l1 = Geocoder.coordinates(params["postcode"]+", London, United Kingdom")
         distance = params["radius"]
         
@@ -21,12 +21,13 @@ class AdsController < ApplicationController
                 true
             end
         end
+        
         render json: filtered
     end
 
     def my_ads
-        myAds = Ad.all.filter{|ad| ad.giver.user_id ==1}
-        myAdsFr = Ad.all.map{|ad| {"id" => ad.id, "food_name" => ad.food_name, "postcode" => ad.postcode, "user_id" => ad.giver.user.id, "user_name" => ad.giver.user.name}}
+        myAds = Ad.all.filter{|ad| ad.user_id ==1}
+        myAdsFr = Ad.all.map{|ad| {"id" => ad.id, "food_name" => ad.food_name, "postcode" => ad.postcode, "user_id" => ad.user.id, "user_name" => ad.user.name}}
         render json: myAdsFr
     end
     
@@ -35,16 +36,17 @@ class AdsController < ApplicationController
         if params["ad"]["postcode"]
             ad = params["ad"]
         else
-            giverCode = Giver.all.find(1).postcode 
+            userCode = User.all.find(1).postcode 
             
             ad = params["ad"]
-            ad["postcode"] = giverCode
+            ad["postcode"] = userCode
         end
         
         
-        newAd = Ad.create(food_name: ad["food_name"], giver_id: ad["giver_id"], postcode: ad["postcode"])
+        newAd = Ad.create(food_name: ad["food_name"], user_id: ad["user_id"], postcode: ad["postcode"])
         
-        newAdFormatted = {"id" => newAd.id,"food_name" => newAd.food_name, "postcode" => newAd.postcode, "user_id" => newAd.giver.user.id, "user_name" => newAd.giver.user.name}
+        newAdFormatted = {"id" => newAd.id,"food_name" => newAd.food_name, "postcode" => newAd.postcode, "user_id" => newAd.user.id, "user_name" => newAd.user.name}
+        
         render json: newAdFormatted
     end
 

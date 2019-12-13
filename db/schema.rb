@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2019_12_10_145133) do
   enable_extension "plpgsql"
 
   create_table "ads", force: :cascade do |t|
-    t.integer "giver_id"
+    t.integer "user_id"
     t.string "food_name"
     t.string "postcode"
     t.datetime "created_at", precision: 6, null: false
