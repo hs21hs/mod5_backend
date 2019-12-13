@@ -18,6 +18,16 @@ class UsersController < ApplicationController
         end
     end
 
+    def validate
+        
+        if logged_in
+            
+            render json: { user: @current_user, token: issue_token({ user_id: @current_user.id }) }
+        else
+            render json: { errors: ['Invalid token']}, status: :not_accepted
+        end
+    end
+
     private
 
     def user_params
