@@ -7,8 +7,11 @@ Rails.application.routes.draw do
   delete "/users/delete", to: 'users#destroy'
 
   get "/deliveries", to: 'deliveries#index'
+  post "/my_deliveries", to: 'deliveries#my_deliveries'
   post "/gdeliveries", to: 'deliveries#gcreate'
   post "/rdeliveries", to: 'deliveries#rcreate'
+
+
   get "/ads", to: 'ads#index'
   get "/my_ads", to: 'ads#my_ads'
   post "/ads", to: 'ads#create'

@@ -50,24 +50,7 @@ class AdsController < ApplicationController
         end
     end
     
-    # def create
-        
-    #     if params["ad"]["postcode"]
-    #         ad = params["ad"]
-    #     else
-    #         userCode = User.all.find(1).postcode 
-            
-    #         ad = params["ad"]
-    #         ad["postcode"] = userCode
-    #     end
-        
-        
-    #     newAd = Ad.create(food_name: ad["food_name"], user_id: ad["user_id"], postcode: ad["postcode"])
-        
-    #     newAdFormatted = {"id" => newAd.id,"food_name" => newAd.food_name, "postcode" => newAd.postcode, "user_id" => newAd.user.id, "user_name" => newAd.user.name}
-        
-    #     render json: newAdFormatted
-    # end
+    
 
     def destroy
         
