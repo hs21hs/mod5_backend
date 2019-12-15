@@ -4,10 +4,11 @@ Rails.application.routes.draw do
   post "/users", to: 'users#create'
   post "/login", to: 'users#login'
   get "/validate", to: 'users#validate'
+  delete "/users/delete", to: 'users#destroy'
 
   get "/deliveries", to: 'deliveries#index'
-  post "/deliveries", to: 'deliveries#create'
-
+  post "/gdeliveries", to: 'deliveries#gcreate'
+  post "/rdeliveries", to: 'deliveries#rcreate'
   get "/ads", to: 'ads#index'
   get "/my_ads", to: 'ads#my_ads'
   post "/ads", to: 'ads#create'

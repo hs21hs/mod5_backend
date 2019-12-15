@@ -3,6 +3,8 @@ class UsersController < ApplicationController
     def create
         user = User.create(user_params)
         if user.valid?
+            Giver.create(user_id: user.id)
+            Rider.create(user_id: user.id)
             render json: {user: user, token: issue_token({user_id: user.id})}
         else
             render json: {errors: user.errors.full_messages}, status: :not_accepted
@@ -26,6 +28,10 @@ class UsersController < ApplicationController
         else
             render json: { errors: ['Invalid token']}, status: :not_accepted
         end
+    end
+
+    def destroy 
+        User.destroy(@current_user.id)
     end
 
     private
