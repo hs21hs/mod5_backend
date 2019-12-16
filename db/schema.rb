@@ -17,17 +17,23 @@ ActiveRecord::Schema.define(version: 2019_12_10_145133) do
 
   create_table "ads", force: :cascade do |t|
     t.integer "user_id"
+    t.integer "food_bank_id"
     t.string "food_name"
     t.string "postcode"
+    t.string "type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "deliveries", force: :cascade do |t|
     t.string "status"
+    t.string "food_name"
+    t.string "d_type"
+    t.string "time_type"
     t.integer "rider_id"
     t.integer "giver_id"
     t.integer "food_bank_id"
+    t.string "pick_up_postcode"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

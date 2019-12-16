@@ -2,7 +2,7 @@ class DeliveriesController < ApplicationController
     def gcreate
         giver = @current_user.giver.id
         rider = @current_user.rider.id 
-        delivery = Delivery.create(rider_id: rider, giver_id: giver, food_bank_id: 1, status: "processing")
+        delivery = Delivery.create(rider_id: rider, giver_id: giver, food_bank_id: 1, status: "processing", d_type:"self")
 
         if delivery.valid?
             render json: delivery
@@ -10,14 +10,26 @@ class DeliveriesController < ApplicationController
     end
 
     def rcreate
-       
-        rider = @current_user.rider.id 
-        ad = Ad.all.find(params["ad_id"])
-        giver = ad.user.giver.id
-        delivery = Delivery.create(rider_id: rider, giver_id: giver, food_bank_id: 1, status: "processing")
+     
+        rider_id = @current_user.rider.id 
+        ad = Ad.all.find(params["ad"]["id"])
+        giver_id = ad.user.giver.id
+        pick_up_postcode = ad.postcode
+        food_name = ad.food_name
+        food_bank_id = ad.food_bank_id
+
+        giver_email = Giver.all.find(giver_id).user.email
+        rider_email = Rider.all.find(rider_id).user.email
+        food_bank_name = FoodBank.all.find(food_bank_id).name
+        
+        extra = {:rider_email=>rider_email,:giver_email=>giver_email, :food_bank_name=>food_bank_name}
+        
+        delivery = Delivery.create( rider_id: rider_id, giver_id: giver_id, food_bank_id: food_bank_id, pick_up_postcode: pick_up_postcode, status: "processing", d_type: "aided")
+        
+        dobj ={:delivery=>delivery, :extra=>extra}
        
         if delivery.valid?
-            render json: delivery
+            render json: dobj
         end
     end
 
@@ -51,8 +63,18 @@ class DeliveriesController < ApplicationController
         fdels = mdels.select do |d|
              d.status===params["status"] 
         end
+
+        ffdels = fdels.map do |d| 
+            giver_email = Giver.all.find(d.giver_id).user.email
+            rider_email = Rider.all.find(d.rider_id).user.email
+            food_bank_name = FoodBank.all.find(d.food_bank_id).name
+            extra = {:rider_email=>rider_email,:giver_email=>giver_email, :food_bank_name=>food_bank_name}
+            
+            x = {:delivery=>d, :extra=>extra}
         
-        render json: fdels
+        end
+        render json: ffdels
+        
         
     end
 

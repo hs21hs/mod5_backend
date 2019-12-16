@@ -36,7 +36,7 @@ class AdsController < ApplicationController
         ad = Ad.create(ad_params)
         
         user = @current_user
-        ad.update(user: user)
+        ad.update(user: user, food_bank_id: 1)
         
         if ad.valid?
             if params["ad"]["postcode"]
@@ -60,6 +60,6 @@ class AdsController < ApplicationController
     private
 
     def ad_params
-        params.require(:ad).permit(:food_name)
+        params.require(:ad).permit(:food_name, :postcode)
     end
 end
