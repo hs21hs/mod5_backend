@@ -8,11 +8,18 @@ class AdsController < ApplicationController
     end
 
     def filter_ads
-       
+        
         l1 = Geocoder.coordinates(params["postcode"]+", London, United Kingdom")
         distance = params["radius"]
         
-        filtered = Ad.all.select do |ad|
+        filterForActive = Ad.all.select do |ad|
+            
+            if ad.active == true && @current_user.id != ad.user.id
+                true
+            end
+        end
+
+        filtered = filterForActive.select do |ad|
             if ad.postcode
                 l2 = ad.postcode + ", London, United Kingdom"
                 distance = Geocoder::Calculations.distance_between(l1,l2)
@@ -27,8 +34,9 @@ class AdsController < ApplicationController
     end
 
     def my_ads
-       myAds = Ad.all.filter{|ad| ad.user_id ==@current_user.id}
-       myAdsFr = myAds.map{|ad| {"id" => ad.id, "food_name" => ad.food_name, "postcode" => ad.postcode, "user_id" => ad.user.id, "user_name" => ad.user.name}}
+        
+       myAds = Ad.all.filter{|ad| ad.user_id ==@current_user.id }
+       myAdsFr = myAds.map{|ad| {"id" => ad.id, "food_name" => ad.food_name, "postcode" => ad.postcode, "user_id" => ad.user.id, "user_name" => ad.user.name, "active" => ad.active}}
        render json: myAdsFr   
     end
 
@@ -36,7 +44,7 @@ class AdsController < ApplicationController
         ad = Ad.create(ad_params)
         
         user = @current_user
-        ad.update(user: user, food_bank_id: 1)
+        ad.update(user: user, food_bank_id: 1, active:true)
         
         if ad.valid?
             if params["ad"]["postcode"]
@@ -50,7 +58,11 @@ class AdsController < ApplicationController
         end
     end
     
-    
+    def update_active
+        ad = Ad.all.find(params["ad_id"])
+        ad.update(active: !ad.active)
+        render json: ad
+    end
 
     def destroy
         

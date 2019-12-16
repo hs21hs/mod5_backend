@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2019_12_10_145133) do
   create_table "ads", force: :cascade do |t|
     t.integer "user_id"
     t.integer "food_bank_id"
+    t.boolean "active"
     t.string "food_name"
     t.string "postcode"
     t.string "type"

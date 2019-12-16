@@ -12,9 +12,11 @@ Rails.application.routes.draw do
   post "/rdeliveries", to: 'deliveries#rcreate'
 
 
+
   get "/ads", to: 'ads#index'
   get "/my_ads", to: 'ads#my_ads'
   post "/ads", to: 'ads#create'
   post "/ads/filter", to: 'ads#filter_ads'
+  patch "/ads/update_active", to: 'ads#update_active'
   delete "/ads/:id", to: 'ads#destroy'
 end

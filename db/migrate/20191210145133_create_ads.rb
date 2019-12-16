@@ -3,6 +3,7 @@ class CreateAds < ActiveRecord::Migration[6.0]
     create_table :ads do |t|
       t.integer :user_id
       t.integer :food_bank_id
+      t.boolean :active
       t.string :food_name
       t.string :postcode 
       t.string :type
