@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_10_145133) do
+ActiveRecord::Schema.define(version: 2019_12_19_132836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 2019_12_10_145133) do
     t.string "type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.string "title"
+    t.bigint "giver_id", null: false
+    t.bigint "rider_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["giver_id"], name: "index_conversations_on_giver_id"
+    t.index ["rider_id"], name: "index_conversations_on_rider_id"
   end
 
   create_table "deliveries", force: :cascade do |t|
@@ -58,6 +68,14 @@ ActiveRecord::Schema.define(version: 2019_12_10_145133) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string "text"
+    t.bigint "conversation_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
+  end
+
   create_table "riders", force: :cascade do |t|
     t.integer "user_id"
     t.string "address"
@@ -76,4 +94,7 @@ ActiveRecord::Schema.define(version: 2019_12_10_145133) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "conversations", "givers"
+  add_foreign_key "conversations", "riders"
+  add_foreign_key "messages", "conversations"
 end

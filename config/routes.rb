@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
+  get 'messagesrails/g'
+  get 'messagesrails/controller'
+  get 'messagesrails/messages'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  resources :conversations, only: [:index, :create]
+  resources :messages, only: [:create]
+  mount ActionCable.server => '/cable'
 
   post "/users", to: 'users#create'
   post "/login", to: 'users#login'
@@ -10,8 +17,6 @@ Rails.application.routes.draw do
   post "/my_deliveries", to: 'deliveries#my_deliveries'
   post "/gdeliveries", to: 'deliveries#gcreate'
   post "/rdeliveries", to: 'deliveries#rcreate'
-
-
 
   get "/ads", to: 'ads#index'
   get "/my_ads", to: 'ads#my_ads'

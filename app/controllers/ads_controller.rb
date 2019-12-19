@@ -1,4 +1,9 @@
 class AdsController < ApplicationController
+    def default_serializer_options
+        {
+          serializer: nil
+        }
+      end
 
     def index
         
@@ -29,7 +34,7 @@ class AdsController < ApplicationController
                 end
             end
         end
-        
+        byebug
         render json: filtered
     end
 
@@ -44,7 +49,8 @@ class AdsController < ApplicationController
         ad = Ad.create(ad_params)
         
         user = @current_user
-        ad.update(user: user, food_bank_id: 1, active:true)
+        
+        ad.update(user_id: user.id, food_bank_id: 1, active: true)
         
         if ad.valid?
             if params["ad"]["postcode"]
@@ -52,7 +58,7 @@ class AdsController < ApplicationController
             else
                 ad.update(postcode: user.postcode)
             end
-            render json: ad
+            render json: {ad: ad}
         else
             render json: {errors: ad.errors.full_messages}, status: :not_accepted
         end
