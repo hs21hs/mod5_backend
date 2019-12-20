@@ -4,6 +4,8 @@ class CreateRiders < ActiveRecord::Migration[6.0]
       t.integer :user_id
       t.string :address
       t.string :postcode
+      t.integer :rating_avg
+      
       t.timestamps
     end
   end

@@ -7,7 +7,7 @@ class CreateGivers < ActiveRecord::Migration[6.0]
       t.string :country
       t.string :latitude
       t.string :longitude
-      
+      t.integer :rating_avg
    
 
       t.timestamps
