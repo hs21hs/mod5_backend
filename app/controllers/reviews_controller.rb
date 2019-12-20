@@ -1,7 +1,21 @@
 class ReviewsController < ApplicationController
     
-    def index
-    
+    def show_card
+        
+        show_user= User.all.find(params["showUsersId"])
+        show_users_reviews = show_user.reviews
+
+        show_users_ratings_ar = show_users_reviews.map do |review|
+                review.rating
+        end
+
+        if show_users_ratings_ar.length == 0 || show_users_ratings_ar.sum == 0
+            show_users_avg_rating = "this user hasnt been rated yet"
+        else
+            show_users_avg_rating = show_users_ratings_ar.sum/show_users_ratings_ar.length
+        end
+        show_user= {"show_user" => show_user, "avg_rating" => show_users_avg_rating}
+        render json: show_user
     end
         
     def show_user

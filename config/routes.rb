@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   post "/reviews", to: 'reviews#create'
   post "/reviews/user", to: 'reviews#show_user'
+  post "/reviews/show_card", to: 'reviews#show_card'
   
   post "/users", to: 'users#create'
   post "/login", to: 'users#login'
