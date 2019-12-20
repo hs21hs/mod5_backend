@@ -60,9 +60,12 @@ ActiveRecord::Schema.define(version: 2019_12_20_180853) do
   end
 
   create_table "reviews", force: :cascade do |t|
+    t.integer "delivery_id"
+    t.integer "user_id"
+    t.integer "reviewer_id"
     t.integer "rider_id"
     t.integer "giver_id"
-    t.string "owner"
+    t.string "reviewer"
     t.string "content"
     t.integer "rating"
     t.datetime "created_at", precision: 6, null: false
