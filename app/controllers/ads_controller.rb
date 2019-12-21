@@ -42,8 +42,8 @@ class AdsController < ApplicationController
 
     def create
         ad = Ad.create(ad_params)
-        
         user = @current_user
+    
         ad.update(user: user, food_bank_id: 1, active:true)
         
         if ad.valid?
