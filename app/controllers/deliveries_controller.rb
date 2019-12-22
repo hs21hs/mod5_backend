@@ -66,9 +66,11 @@ class DeliveriesController < ApplicationController
 
         ffdels = fdels.map do |d| 
             giver_email = Giver.all.find(d.giver_id).user.email
+            giver_name = Giver.all.find(d.giver_id).user.name
             rider_email = Rider.all.find(d.rider_id).user.email
+            rider_name = Rider.all.find(d.rider_id).user.name
             food_bank_name = FoodBank.all.find(d.food_bank_id).name
-            extra = {:rider_email=>rider_email,:giver_email=>giver_email, :food_bank_name=>food_bank_name}
+            extra = {:rider_email=>rider_email,:giver_email=>giver_email, :rider_name=>rider_name,:giver_name=>giver_name, :food_bank_name=>food_bank_name}
             
             x = {:delivery=>d, :extra=>extra}
         
@@ -76,6 +78,22 @@ class DeliveriesController < ApplicationController
         render json: ffdels
         
         
+    end
+
+    def completed
+        
+        d = Delivery.all.find(params["did"])
+        d.update(status: "completed")
+
+        giver_email = Giver.all.find(d.giver_id).user.email
+            giver_name = Giver.all.find(d.giver_id).user.name
+            rider_email = Rider.all.find(d.rider_id).user.email
+            rider_name = Rider.all.find(d.rider_id).user.name
+            food_bank_name = FoodBank.all.find(d.food_bank_id).name
+            extra = {:rider_email=>rider_email,:giver_email=>giver_email, :rider_name=>rider_name,:giver_name=>giver_name, :food_bank_name=>food_bank_name}
+            
+            x = {:delivery=>d, :extra=>extra}
+        render json: x
     end
 
         

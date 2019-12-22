@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   post "/my_deliveries", to: 'deliveries#my_deliveries'
   post "/gdeliveries", to: 'deliveries#gcreate'
   post "/rdeliveries", to: 'deliveries#rcreate'
+  post "/cdeliveries", to: 'deliveries#completed'
 
 
 
