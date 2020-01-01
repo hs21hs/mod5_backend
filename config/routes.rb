@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
 
   get "/ads", to: 'ads#index'
+  post "/ads/all", to: 'ads#all'
   get "/my_ads", to: 'ads#my_ads'
   post "/ads", to: 'ads#create'
   post "/ads/filter", to: 'ads#filter_ads'

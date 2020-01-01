@@ -33,6 +33,8 @@ class DeliveriesController < ApplicationController
         end
     end
 
+    
+
     def my_deliveries
         user = @current_user
         if params["type"] === "giver"

@@ -7,6 +7,16 @@ class AdsController < ApplicationController
        
     end
 
+    def all
+        user = @current_user
+        ads = Ad.all.select do |ad|
+            if ad.id != user.id 
+                true
+            end
+        end
+        render json: ads
+    end
+
     def filter_ads
         
         l1 = Geocoder.coordinates(params["postcode"]+", London, United Kingdom")
