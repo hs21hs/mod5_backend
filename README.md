@@ -7,3 +7,4 @@ To start this backend please run the following commands
 -rails s (on port 3000)
 
 then please run the frontend from the following repo:
+https://github.com/hs21hs/mod5_frontend
