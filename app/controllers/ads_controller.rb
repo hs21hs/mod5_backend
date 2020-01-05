@@ -10,7 +10,7 @@ class AdsController < ApplicationController
     def all
         user = @current_user
         ads = Ad.all.select do |ad|
-            if ad.id != user.id 
+            if ad.user_id != user.id 
                 true
             end
         end

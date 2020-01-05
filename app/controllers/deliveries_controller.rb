@@ -67,14 +67,27 @@ class DeliveriesController < ApplicationController
         end
 
         ffdels = fdels.map do |d| 
-            giver_email = Giver.all.find(d.giver_id).user.email
-            giver_name = Giver.all.find(d.giver_id).user.name
-            rider_email = Rider.all.find(d.rider_id).user.email
-            rider_name = Rider.all.find(d.rider_id).user.name
+            giver =  Giver.all.find(d.giver_id)
+            rider = Rider.all.find(d.rider_id)
+
+            giver_email = giver.user.email
+            giver_name = giver.user.name
+
+            rider_email = rider.user.email
+            rider_name = rider.user.name
+
             food_bank_name = FoodBank.all.find(d.food_bank_id).name
+
+            wUser = nil
+            if giver.user.id == user.id
+                wUser = "giver"
+            else 
+                wUser = "rider"
+            end
+            
             extra = {:rider_email=>rider_email,:giver_email=>giver_email, :rider_name=>rider_name,:giver_name=>giver_name, :food_bank_name=>food_bank_name}
             
-            x = {:delivery=>d, :extra=>extra}
+            x = {:delivery=>d, :extra=>extra, :wUser=> wUser}
         
         end
         render json: ffdels
