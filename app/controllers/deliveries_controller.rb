@@ -87,7 +87,7 @@ class DeliveriesController < ApplicationController
             
             extra = {:rider_email=>rider_email,:giver_email=>giver_email, :rider_name=>rider_name,:giver_name=>giver_name, :food_bank_name=>food_bank_name}
             
-            x = {:delivery=>d, :extra=>extra, :wUser=> wUser}
+            x = {:delivery=>d, :extra=>extra, :wUser=> wUser, :giver_id=>giver.user.id, :rider_id=>rider.user.id}
         
         end
         render json: ffdels
