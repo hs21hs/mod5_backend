@@ -19,9 +19,10 @@ class AdsController < ApplicationController
 
     def filter_ads
         
-        l1 = Geocoder.coordinates(params["postcode"]+", London, United Kingdom")
+        # l1 = Geocoder.coordinates(params["postcode"]+", London, United Kingdom")
+        l1= params["postcode"]
         distance = params["radius"]
-        
+   
         filterForActive = Ad.all.select do |ad|
             
             if ad.active == true && @current_user.id != ad.user.id
@@ -31,7 +32,7 @@ class AdsController < ApplicationController
 
         filtered = filterForActive.select do |ad|
             if ad.postcode
-                l2 = ad.postcode + ", London, United Kingdom"
+                l2 = ad.postcode 
                 distance = Geocoder::Calculations.distance_between(l1,l2)
 
                 if distance < params["radius"].to_i 

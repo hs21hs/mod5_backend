@@ -8,7 +8,7 @@ To start this backend please run the following commands
 -rails db:create
 -rails db:migrate
 -rails db:seed
--rails s (on port 3000)
+-rails s (on port 3000), alternatively enter your chosen port number in the front end repo(link below) at file path "/src/serverURL/serverURL.js"
 
 then please run the frontend from the following repo:
 https://github.com/hs21hs/mod5_frontend
